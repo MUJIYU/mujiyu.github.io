@@ -41,7 +41,7 @@ export function HomeIndicator() {
       <img
         className="android-navigation-bar"
         data-testid="android-navigation-bar"
-        src="/assets/android/navigation-bar.svg"
+        src={`${import.meta.env.BASE_URL}assets/android/navigation-bar.svg`}
         alt=""
         aria-hidden="true"
         draggable={false}
@@ -98,8 +98,8 @@ function StatusIndicators({ platform }: { platform: "ios" | "android" }) {
       data-platform={platform}
       src={
         platform === "android"
-          ? "/assets/status/status-icons.svg"
-          : "/assets/status/ios-status-icons.svg"
+          ? `${import.meta.env.BASE_URL}assets/status/status-icons.svg`
+          : `${import.meta.env.BASE_URL}assets/status/ios-status-icons.svg`
       }
       alt=""
       aria-hidden="true"

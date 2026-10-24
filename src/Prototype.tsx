@@ -98,6 +98,8 @@ type Practice = {
   tone: "forest" | "sage" | "night" | "clay";
 };
 
+const appAsset = (filename: string) => `${import.meta.env.BASE_URL}assets/app/${filename}`;
+
 const validRoutes = new Set<Route>([
   "splash",
   "login",
@@ -132,7 +134,7 @@ const practices: Practice[] = [
     subtitle: "安住当下",
     meta: "10 分钟",
     icon: <FlowerLotus size={22} />,
-    image: "/assets/app/forest-mist.jpg",
+    image: appAsset("forest-mist.jpg"),
     tone: "forest",
   },
   {
@@ -149,7 +151,7 @@ const practices: Practice[] = [
     subtitle: "慢慢沉下去",
     meta: "今晚",
     icon: <Moon size={22} />,
-    image: "/assets/app/night-mountain.jpg",
+    image: appAsset("night-mountain.jpg"),
     tone: "night",
   },
   {
@@ -166,12 +168,12 @@ const sleepSessions = [
   {
     title: "湖边的晚风",
     meta: "18 分钟 · 睡前放松",
-    image: "/assets/app/lake-evening.jpg",
+    image: appAsset("lake-evening.jpg"),
   },
   {
     title: "向山谷说晚安",
     meta: "12 分钟 · 呼吸引导",
-    image: "/assets/app/mountain-air.jpg",
+    image: appAsset("mountain-air.jpg"),
   },
 ];
 
@@ -186,14 +188,14 @@ const meditationTopics = [
     title: "睡个好觉",
     note: "把今天放下",
     icon: <Bed size={21} />,
-    image: "/assets/app/night-mountain.jpg",
+    image: appAsset("night-mountain.jpg"),
     tone: "night",
   },
   {
     title: "减压放松",
     note: "松开身体和思绪",
     icon: <Wind size={20} />,
-    image: "/assets/app/forest-mist.jpg",
+    image: appAsset("forest-mist.jpg"),
     tone: "forest",
   },
   {
@@ -343,7 +345,7 @@ export default function Prototype() {
           <ImmersivePlayer
             title="10 分钟轻冥想"
             subtitle="把注意力带回呼吸"
-            image="/assets/app/forest-mist.jpg"
+            image={appAsset("forest-mist.jpg")}
             duration={10 * 60}
             onBack={() => navigate("meditation")}
             onFinish={() => setNotice("今天的冥想练习已完成")}
@@ -364,7 +366,7 @@ export default function Prototype() {
           <ImmersivePlayer
             title="睡前放松"
             subtitle="舒缓疲劳，放松四肢"
-            image="/assets/app/lake-evening.jpg"
+            image={appAsset("lake-evening.jpg")}
             duration={18 * 60}
             onBack={() => navigate("sleep")}
             onFinish={() => setNotice("今晚的睡前练习已完成")}
@@ -503,7 +505,7 @@ function LoginScreen({
     <MobileScroll className="app-screen login-screen">
       <main className="login-content">
         <div className="login-visual">
-          <img src="/assets/app/mountain-air.jpg" alt="山谷与湖水" />
+          <img src={appAsset("mountain-air.jpg")} alt="山谷与湖水" />
           <span className="login-brand">此刻</span>
           <div>
             <p className="eyebrow">欢迎回来</p>
@@ -703,7 +705,7 @@ function MeditationScreen({
       <main className="detail-content">
         <DetailHeader title="冥想" onBack={onBack} />
         <button className="meditation-feature" type="button" onClick={onStart}>
-          <img src="/assets/app/forest-mist.jpg" alt="晨雾中的树林" />
+          <img src={appAsset("forest-mist.jpg")} alt="晨雾中的树林" />
           <span className="feature-overlay" />
           <span className="feature-copy">
             <span className="hero-kicker">今日推荐 · 10 分钟</span>
@@ -947,7 +949,7 @@ function SleepScreen({
           }
         />
         <button className="sleep-feature" type="button" onClick={onStart}>
-          <img src="/assets/app/night-mountain.jpg" alt="星空下的雪山" />
+          <img src={appAsset("night-mountain.jpg")} alt="星空下的雪山" />
           <span className="feature-overlay" />
           <span className="sleep-feature-copy">
             <small>今晚的睡前时光</small>
@@ -980,9 +982,9 @@ function SleepScreen({
           <SectionHeading eyebrow="听一个温柔的故事" title="睡眠故事" />
           <Carousel ariaLabel="睡眠故事" className="story-carousel" contentClassName="story-carousel-track">
             {[
-              ["清迈的日与夜", "20 分钟", "/assets/app/lake-evening.jpg"],
-              ["日落的海边", "20 分钟", "/assets/app/mountain-air.jpg"],
-              ["白日的梦想", "20 分钟", "/assets/app/night-mountain.jpg"],
+              ["清迈的日与夜", "20 分钟", appAsset("lake-evening.jpg")],
+              ["日落的海边", "20 分钟", appAsset("mountain-air.jpg")],
+              ["白日的梦想", "20 分钟", appAsset("night-mountain.jpg")],
             ].map(([title, time, image]) => (
               <button key={title} className="story-card" type="button" onClick={onStart}>
                 <img src={image} alt="" aria-hidden="true" />
@@ -1122,7 +1124,7 @@ function BreathingScreen({ onBack }: { onBack: () => void }) {
           onBack={onBack}
         />
         <section className="breathing-hero" aria-label="呼吸练习氛围图">
-          <img src="/assets/app/forest-mist.jpg" alt="晨雾中的安静树林" />
+          <img src={appAsset("forest-mist.jpg")} alt="晨雾中的安静树林" />
           <div className="breathing-hero-copy">
             <span className="hero-kicker">4 · 2 · 6 呼吸法</span>
             <p>
@@ -1230,7 +1232,7 @@ function AwarenessScreen({
             <h2>今天的你，还好吗？</h2>
             <p>不用急着解决所有问题，先记录此刻真实的感受。</p>
           </div>
-          <img src="/assets/app/forest-mist.jpg" alt="" aria-hidden="true" />
+          <img src={appAsset("forest-mist.jpg")} alt="" aria-hidden="true" />
           <button type="button" onClick={onRecord}>
             <PencilSimple size={18} />
             记录此刻
@@ -1273,7 +1275,7 @@ function AwarenessScreen({
           <SectionHeading eyebrow="读一点，停一下" title="暂停一下" />
           <div className="article-list">
             <button type="button" className="article-row" onClick={onArticle}>
-              <img src="/assets/app/forest-mist.jpg" alt="" aria-hidden="true" />
+              <img src={appAsset("forest-mist.jpg")} alt="" aria-hidden="true" />
               <span>
                 <strong>情绪内耗，是因为你的“超我”太强大了</strong>
                 <small>弗洛伊德心理学 · 6 分钟阅读</small>
@@ -1281,7 +1283,7 @@ function AwarenessScreen({
               <CaretRight size={17} />
             </button>
             <button type="button" className="article-row" onClick={onArticle}>
-              <img src="/assets/app/lake-evening.jpg" alt="" aria-hidden="true" />
+              <img src={appAsset("lake-evening.jpg")} alt="" aria-hidden="true" />
               <span>
                 <strong>允许自己慢下来，也是一种前进</strong>
                 <small>日常觉察 · 4 分钟阅读</small>
@@ -1416,7 +1418,7 @@ function RecommendationScreen({
           根据你此刻的感受，为你留了一段温柔的练习
         </div>
         <button className="recommendation-card" type="button" onClick={onStart}>
-          <img src="/assets/app/forest-mist.jpg" alt="安静的森林" />
+          <img src={appAsset("forest-mist.jpg")} alt="安静的森林" />
           <span className="feature-overlay" />
           <span className="recommendation-card-copy">
             <small>呼吸引导 · 5 分钟 · 初学者适用</small>
@@ -1597,7 +1599,7 @@ function ArticleScreen({
             </button>
           }
         />
-        <img className="article-cover" src="/assets/app/forest-mist.jpg" alt="安静的自然风景" />
+        <img className="article-cover" src={appAsset("forest-mist.jpg")} alt="安静的自然风景" />
         <div className="article-heading">
           <span className="article-category">心理文章</span>
           <h1>情绪内耗，是因为你的“超我”太强大了</h1>

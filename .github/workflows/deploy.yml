@@ -1,7 +1,7 @@
 name: Deploy Vite to Pages
 on:
   push:
-    branches: ["主要角色"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -23,14 +23,27 @@ jobs:
         with:
           node-version: 22
           cache: "npm"
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+      - name: Resolve Pages base path
+        shell: bash
+        run: |
+          repository_name="${GITHUB_REPOSITORY#*/}"
+          if [[ "${repository_name,,}" == *.github.io ]]; then
+            echo "GITHUB_PAGES_BASE=/" >> "$GITHUB_ENV"
+          else
+            echo "GITHUB_PAGES_BASE=/${repository_name}/" >> "$GITHUB_ENV"
+          fi
       - name: Build
         run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/client # 关键！上传打包后client目录，index.html在这里
+          path: dist/client
   deploy:
     needs: build
     runs-on: ubuntu-latest
