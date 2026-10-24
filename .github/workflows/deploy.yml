@@ -1,7 +1,7 @@
 name: Deploy Vite to Pages
 on:
   push:
-    branches: [ main ]
+    branches: ["主要角色"]
   workflow_dispatch:
 
 permissions:
@@ -11,32 +11,26 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
-
+          node-version: 22
+          cache: "npm"
       - name: Install dependencies
         run: npm install
-
       - name: Build
         run: npm run build
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
-
+          path: dist/client # 关键！上传打包后client目录，index.html在这里
   deploy:
     needs: build
     runs-on: ubuntu-latest
